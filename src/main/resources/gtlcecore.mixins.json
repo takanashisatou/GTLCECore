@@ -2,7 +2,7 @@
   "required": true,
   "minVersion": "0.8",
   "package": "org.Test.gtlcecore.mixin",
-  "compatibilityLevel": "JAVA_8",
+  "compatibilityLevel": "JAVA_17",
   "refmap": "gtlcecore.refmap.json",
   "mixins": [
   ],

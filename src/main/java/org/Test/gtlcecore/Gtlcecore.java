@@ -1,5 +1,4 @@
 package org.Test.gtlcecore;
-
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.Registries;
@@ -14,6 +13,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.property.Properties;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -28,7 +28,6 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import org.slf4j.Logger;
-
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(Gtlcecore.MODID)
 public class Gtlcecore {
@@ -45,20 +44,24 @@ public class Gtlcecore {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
 
     // Creates a new Block with the id "gtlcecore:example_block", combining the namespace and path
-    public static final RegistryObject<Block> EXAMPLE_BLOCK = BLOCKS.register("example_block", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE)));
+
+    public static final RegistryObject<Block> Satou_BLOCK = BLOCKS.register("satou", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).strength(100.f)));
     // Creates a new BlockItem with the id "gtlcecore:example_block", combining the namespace and path
-    public static final RegistryObject<Item> EXAMPLE_BLOCK_ITEM = ITEMS.register("example_block", () -> new BlockItem(EXAMPLE_BLOCK.get(), new Item.Properties()));
-
+    public static final RegistryObject<Item> Satou_BLOCK_ITEM = ITEMS.register("satou", () -> new BlockItem(Satou_BLOCK.get(), new Item.Properties()));
+    public static final RegistryObject<Block> General_Nuke = BLOCKS.register("general_nuke",()->new General_Nuke(BlockBehaviour.Properties.of()));
     // Creates a new food item with the id "gtlcecore:example_id", nutrition 1 and saturation 2
+    public static final RegistryObject<Item> General_Nuke_ITEM = ITEMS.register("general_nuke",() -> new BlockItem(General_Nuke.get(),new Item.Properties()));
     public static final RegistryObject<Item> EXAMPLE_ITEM = ITEMS.register("example_item", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().alwaysEat().nutrition(1).saturationMod(2f).build())));
-
-    // Creates a creative tab with the id "gtlcecore:example_tab" for the example item, that is placed after the combat tab
+    //public static final RegistryObject<Item> General_Nuke_ITEM = ITEMS.register("general_nuke.json",()->new BlockItem(General_Nuke.get(),new Item.Properties()));
     public static final RegistryObject<CreativeModeTab> EXAMPLE_TAB = CREATIVE_MODE_TABS.register("example_tab", () -> CreativeModeTab.builder().withTabsBefore(CreativeModeTabs.COMBAT).icon(() -> EXAMPLE_ITEM.get().getDefaultInstance()).displayItems((parameters, output) -> {
+        output.accept(Satou_BLOCK_ITEM.get());
+        output.accept(General_Nuke_ITEM.get());
         output.accept(EXAMPLE_ITEM.get()); // Add the example item to the tab. For your own tabs, this method is preferred over the event
     }).build());
 
     public Gtlcecore() {
-        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+        IEventBus modEventBus = FMLJavaModLoadingContext
+                .get().getModEventBus();
 
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
@@ -94,7 +97,10 @@ public class Gtlcecore {
 
     // Add the example block item to the building blocks tab
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
-        if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS) event.accept(EXAMPLE_BLOCK_ITEM);
+        if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS) {
+            event.accept(General_Nuke_ITEM.get());
+
+        }
     }
 
     // You can use SubscribeEvent and let the Event Bus discover methods to call
