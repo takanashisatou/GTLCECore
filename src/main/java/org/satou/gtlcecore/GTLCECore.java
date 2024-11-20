@@ -1,4 +1,4 @@
-package org.Test.gtlcecore;
+package org.satou.gtlcecore;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.Registries;
@@ -13,7 +13,6 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.property.Properties;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -27,10 +26,12 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+import org.satou.gtlcecore.block.General_Nuke;
+import org.satou.gtlcecore.items.Cryolite;
 import org.slf4j.Logger;
 // The value here should match an entry in the META-INF/mods.toml file
-@Mod(Gtlcecore.MODID)
-public class Gtlcecore {
+@Mod(GTLCECore.MODID)
+public class GTLCECore {
 
     // Define mod id in a common place for everything to reference
     public static final String MODID = "gtlcecore";
@@ -53,13 +54,16 @@ public class Gtlcecore {
     public static final RegistryObject<Item> General_Nuke_ITEM = ITEMS.register("general_nuke",() -> new BlockItem(General_Nuke.get(),new Item.Properties()));
     public static final RegistryObject<Item> EXAMPLE_ITEM = ITEMS.register("example_item", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().alwaysEat().nutrition(1).saturationMod(2f).build())));
     //public static final RegistryObject<Item> General_Nuke_ITEM = ITEMS.register("general_nuke.json",()->new BlockItem(General_Nuke.get(),new Item.Properties()));
+    public static final RegistryObject<Item> Cryolite = ITEMS.register("cryolite",() -> new Cryolite(new Item.Properties()));
     public static final RegistryObject<CreativeModeTab> EXAMPLE_TAB = CREATIVE_MODE_TABS.register("example_tab", () -> CreativeModeTab.builder().withTabsBefore(CreativeModeTabs.COMBAT).icon(() -> EXAMPLE_ITEM.get().getDefaultInstance()).displayItems((parameters, output) -> {
         output.accept(Satou_BLOCK_ITEM.get());
         output.accept(General_Nuke_ITEM.get());
-        output.accept(EXAMPLE_ITEM.get()); // Add the example item to the tab. For your own tabs, this method is preferred over the event
+        output.accept(EXAMPLE_ITEM.get());
+        output.accept(Cryolite.get());
+        // Add the example item to the tab. For your own tabs, this method is preferred over the event
     }).build());
 
-    public Gtlcecore() {
+    public GTLCECore() {
         IEventBus modEventBus = FMLJavaModLoadingContext
                 .get().getModEventBus();
 
@@ -98,8 +102,8 @@ public class Gtlcecore {
     // Add the example block item to the building blocks tab
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
         if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS) {
-            event.accept(General_Nuke_ITEM.get());
-
+            //event.accept(General_Nuke_ITEM.get());
+            event.accept(Cryolite.get());
         }
     }
 

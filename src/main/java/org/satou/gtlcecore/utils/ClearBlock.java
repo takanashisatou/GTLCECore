@@ -1,4 +1,4 @@
-package org.Test.gtlcecore;
+package org.satou.gtlcecore.utils;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
