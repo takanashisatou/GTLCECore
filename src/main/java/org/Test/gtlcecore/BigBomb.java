@@ -1,9 +1,13 @@
 package org.Test.gtlcecore;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.PrimedTnt;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
@@ -34,6 +38,7 @@ public class BigBomb extends PrimedTnt {
     }
 
     private void SatouExplode(Level world, double x, double y, double z) {
+        this.level().playSound((Player) null,x,y,z, SoundEvents.GENERIC_EXPLODE, SoundSource.BLOCKS,1.0F,1.0F);
         this.level().gameEvent(player, GameEvent.EXPLODE, new Vec3(x, y, z));
         StartBomb startBomb = new StartBomb(world, x, y, z);
         Thread thread = new Thread(startBomb);
