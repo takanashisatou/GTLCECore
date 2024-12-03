@@ -32,8 +32,7 @@ public class GTLCEUCore {
     // Create a Deferred Register to hold Blocks which will all be registered under the "gtlceucore" namespace
 
     public GTLCEUCore() {
-        IEventBus modEventBus = FMLJavaModLoadingContext
-                .get().getModEventBus();
+        IEventBus modEventBus = FMLJavaModLoadingContexts.get().getModEventBus();
 
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);

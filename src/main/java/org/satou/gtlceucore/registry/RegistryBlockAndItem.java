@@ -32,7 +32,7 @@ public class RegistryBlockAndItem {
     public static final RegistryObject<Item> Cryolite = ITEMS.register("cryolite", () -> new Cryolite(new Item.Properties()));
     public static final RegistryObject<Item> Semiconductor_polycrystalline_silicon = ITEMS.register("semiconductor_polycrystalline_silicon",()-> new Semiconductor_Polycrystalline_Silicon(new Item.Properties()));
     public static final RegistryObject<Item> Semiconductor_single_crystal_silicon = ITEMS.register("semiconductor_single_crystal_silicon",()->new semiconductor_single_crystal_silicon(new Item.Properties()));
-    public static final RegistryObject<CreativeModeTab> GTLCECore_TAB = CREATIVE_MODE_TABS.register("GTLCECore", () -> CreativeModeTab.builder().withTabsBefore(CreativeModeTabs.COMBAT).icon(() -> Cryolite.get().getDefaultInstance()).title(MutableComponent.create(new LiteralContents("GTLCECore"))).displayItems((parameters, output) -> {
+    public static final RegistryObject<CreativeModeTab> GTLCEUCore_TAB = CREATIVE_MODE_TABS.register("GTLCEUCore", () -> CreativeModeTab.builder().withTabsBefore(CreativeModeTabs.COMBAT).icon(() -> Cryolite.get().getDefaultInstance()).title(MutableComponent.create(new LiteralContents("GTLCEUCore"))).displayItems((parameters, output) -> {
         //output.accept(Satou_BLOCK_ITEM.get());
         output.accept(General_Nuke_ITEM.get());
         output.accept(Cryolite.get());
