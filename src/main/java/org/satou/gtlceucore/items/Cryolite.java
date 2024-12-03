@@ -1,4 +1,4 @@
-package org.satou.gtlcecore.items;
+package org.satou.gtlceucore.items;
 
 import net.minecraft.world.item.Item;
 

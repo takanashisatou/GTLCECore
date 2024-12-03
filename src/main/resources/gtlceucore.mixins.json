@@ -1,7 +1,7 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "org.satou.gtlcecore.mixin",
+  "package": "org.satou.gtlceucore.mixin",
   "compatibilityLevel": "JAVA_17",
   "refmap": "gtlcecore.refmap.json",
   "mixins": [

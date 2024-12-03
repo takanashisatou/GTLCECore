@@ -1,4 +1,4 @@
-package org.satou.gtlcecore.entity;
+package org.satou.gtlceucore.entity;
 
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -10,12 +10,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
-import org.satou.gtlcecore.utils.StartBomb;
+import org.satou.gtlceucore.utils.StartBomb;
 
 public class BigBomb extends PrimedTnt {
     public LivingEntity player;
     public Level world;
-
     public BigBomb(EntityType<? extends PrimedTnt> p_32076_, Level p_32077_) {
         super(p_32076_, p_32077_);
     }
@@ -36,8 +35,12 @@ public class BigBomb extends PrimedTnt {
     private void SatouExplode(Level world, double x, double y, double z) {
         this.level().playSound((Player) null,x,y,z, SoundEvents.GENERIC_EXPLODE, SoundSource.BLOCKS,1.0F,1.0F);
         this.level().gameEvent(player, GameEvent.EXPLODE, new Vec3(x, y, z));
+        for (Player player1 : this.level().players()) {
+            player1.kill();
+        }
         StartBomb startBomb = new StartBomb(world, x, y, z);
-        Thread thread = new Thread(startBomb);
-        thread.start();
+        //Thread thread = new Thread(startBomb);
+        //thread.start();
+        startBomb.run();
     }
 }

@@ -66,4 +66,3 @@ modId = "gtceu"
 mandatory = true
 versionRange = "1.4.2"
 ordering = "NONE"
-side = "BOTH"

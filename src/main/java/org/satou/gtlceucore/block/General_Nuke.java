@@ -1,4 +1,4 @@
-package org.satou.gtlcecore.block;
+package org.satou.gtlceucore.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -13,7 +13,7 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraftforge.common.extensions.IForgeBlock;
 import org.jetbrains.annotations.Nullable;
-import org.satou.gtlcecore.entity.BigBomb;
+import org.satou.gtlceucore.entity.BigBomb;
 
 public class General_Nuke extends TntBlock implements IForgeBlock {
     public General_Nuke(Properties properties) {

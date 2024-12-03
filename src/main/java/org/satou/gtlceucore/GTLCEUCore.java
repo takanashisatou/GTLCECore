@@ -1,16 +1,8 @@
-package org.satou.gtlcecore;
+package org.satou.gtlceucore;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.material.MapColor;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
@@ -23,47 +15,23 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
-import org.satou.gtlcecore.block.General_Nuke;
-import org.satou.gtlcecore.items.Cryolite;
+import org.satou.gtlceucore.registry.RegistryBlockAndItem;
 import org.slf4j.Logger;
+
+import static org.satou.gtlceucore.registry.RegistryBlockAndItem.*;
+
 // The value here should match an entry in the META-INF/mods.toml file
-@Mod(GTLCECore.MODID)
-public class GTLCECore {
+@Mod(GTLCEUCore.MODID)
+public class GTLCEUCore {
 
     // Define mod id in a common place for everything to reference
-    public static final String MODID = "gtlcecore";
+    public static final String MODID = "gtlceucore";
     // Directly reference a slf4j logger
     public static final Logger LOGGER = LogUtils.getLogger();
-    // Create a Deferred Register to hold Blocks which will all be registered under the "gtlcecore" namespace
-    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MODID);
-    // Create a Deferred Register to hold Items which will all be registered under the "gtlcecore" namespace
-    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
-    // Create a Deferred Register to hold CreativeModeTabs which will all be registered under the "gtlcecore" namespace
-    public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
+    // Create a Deferred Register to hold Blocks which will all be registered under the "gtlceucore" namespace
 
-    // Creates a new Block with the id "gtlcecore:example_block", combining the namespace and path
-
-    public static final RegistryObject<Block> Satou_BLOCK = BLOCKS.register("satou", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).strength(100.f)));
-    // Creates a new BlockItem with the id "gtlcecore:example_block", combining the namespace and path
-    public static final RegistryObject<Item> Satou_BLOCK_ITEM = ITEMS.register("satou", () -> new BlockItem(Satou_BLOCK.get(), new Item.Properties()));
-    public static final RegistryObject<Block> General_Nuke = BLOCKS.register("general_nuke",()->new General_Nuke(BlockBehaviour.Properties.of()));
-    // Creates a new food item with the id "gtlcecore:example_id", nutrition 1 and saturation 2
-    public static final RegistryObject<Item> General_Nuke_ITEM = ITEMS.register("general_nuke",() -> new BlockItem(General_Nuke.get(),new Item.Properties()));
-    public static final RegistryObject<Item> EXAMPLE_ITEM = ITEMS.register("example_item", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().alwaysEat().nutrition(1).saturationMod(2f).build())));
-    //public static final RegistryObject<Item> General_Nuke_ITEM = ITEMS.register("general_nuke.json",()->new BlockItem(General_Nuke.get(),new Item.Properties()));
-    public static final RegistryObject<Item> Cryolite = ITEMS.register("cryolite",() -> new Cryolite(new Item.Properties()));
-    public static final RegistryObject<CreativeModeTab> EXAMPLE_TAB = CREATIVE_MODE_TABS.register("example_tab", () -> CreativeModeTab.builder().withTabsBefore(CreativeModeTabs.COMBAT).icon(() -> EXAMPLE_ITEM.get().getDefaultInstance()).displayItems((parameters, output) -> {
-        output.accept(Satou_BLOCK_ITEM.get());
-        output.accept(General_Nuke_ITEM.get());
-        output.accept(EXAMPLE_ITEM.get());
-        output.accept(Cryolite.get());
-        // Add the example item to the tab. For your own tabs, this method is preferred over the event
-    }).build());
-
-    public GTLCECore() {
+    public GTLCEUCore() {
         IEventBus modEventBus = FMLJavaModLoadingContext
                 .get().getModEventBus();
 
@@ -102,8 +70,7 @@ public class GTLCECore {
     // Add the example block item to the building blocks tab
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
         if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS) {
-            //event.accept(General_Nuke_ITEM.get());
-            event.accept(Cryolite.get());
+            event.accept(RegistryBlockAndItem.Cryolite.get());
         }
     }
 
