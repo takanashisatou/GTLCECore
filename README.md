@@ -1,1 +1,1 @@
-GTLCE的附属模组，负责开发Kubejs不能编写的部分
+GTLCEU的附属模组，负责开发Kubejs不能编写的部分
